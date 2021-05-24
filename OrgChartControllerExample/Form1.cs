@@ -1,4 +1,6 @@
-﻿using OrgChartControllerExample.ViewModels;
+﻿using DevExpress.Utils;
+using DevExpress.XtraDiagram;
+using OrgChartControllerExample.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +19,13 @@ namespace OrgChartControllerExample
             InitializeComponent();
             var model = new MainViewModel();
             diagramOrgChartController1.DataSource = model.Contacts;
+            diagramControl1.MouseDoubleClick += DiagramControl1_MouseDoubleClick;
+        }
+
+        private void DiagramControl1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {            
+            PointFloat canvasPoint = diagramControl1.PointToDocument(new PointFloat(e.X, e.Y));
+            diagramControl1.Items.Add(new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint });
         }
     }
 }
