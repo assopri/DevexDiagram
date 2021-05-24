@@ -21,6 +21,50 @@ namespace OrgChartControllerExample
             diagramOrgChartController1.DataSource = model.Contacts;
             diagramControl1.MouseDoubleClick += DiagramControl1_MouseDoubleClick;
             diagramControl1.MouseMove += DiagramControl1_MouseMove;
+            diagramControl1.KeyDown += DiagramControl1_KeyDown;
+        }
+
+        private void DiagramControl1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Insert)
+            {
+                AddItem(false);
+                e.Handled = true;
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                AddItem(true);
+                e.Handled = true;
+            }
+        }
+
+        void AddItem(bool addSibling)
+        {
+            if (diagramControl1.PrimarySelection != null &&
+                diagramControl1.SelectedItems.Count == 1 &&
+                !(diagramControl1.PrimarySelection is DiagramConnector))
+            // if (diagramControl1.SelectedItems[0].GetType() == typeof(DiagramContainer))
+            {
+                DiagramItem selectedItem = diagramControl1.PrimarySelection;
+                DiagramShape newShape = new DiagramShape()
+                {
+                    Width = selectedItem.Width,
+                    Height = selectedItem.Height
+                };
+                DiagramItem parentItem = null;
+                if (addSibling)
+                {
+                    if (selectedItem.IncomingConnectors.Any())
+                        parentItem = (DiagramItem)selectedItem.IncomingConnectors.First().BeginItem;
+                }
+                else
+                {
+                    parentItem = selectedItem;
+                }
+                DiagramConnector newConnectyor = new DiagramConnector() { BeginItem = parentItem, EndItem = newShape };
+                diagramControl1.Items.AddRange(newShape, newConnectyor);
+                diagramControl1.ApplyTreeLayout();
+            }
         }
 
         private void DiagramControl1_MouseMove(object sender, MouseEventArgs e)
