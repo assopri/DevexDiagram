@@ -1,5 +1,8 @@
-﻿using DevExpress.Utils;
+﻿using DevExpress.Diagram.Core;
+using DevExpress.Utils;
 using DevExpress.XtraDiagram;
+using DevExpress.XtraEditors;
+using OrgChartControllerExample.Model;
 using OrgChartControllerExample.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,12 +25,42 @@ namespace OrgChartControllerExample
             diagramControl1.MouseDoubleClick += DiagramControl1_MouseDoubleClick;
             diagramControl1.MouseMove += DiagramControl1_MouseMove;
             diagramControl1.KeyDown += DiagramControl1_KeyDown;
+            diagramControl1.ItemsMoving += DiagramControl1_ItemsMoving;
 
             foreach (var item in diagramControl1.Items)
             {
                 item.CanHideSubordinates = true;
-                
+
             }
+
+        }
+
+        private void DiagramControl1_ItemsMoving(object sender, DiagramItemsMovingEventArgs e)
+        {
+            if (e.Stage == DiagramActionStage.Finished)
+            {
+                DiagramShape targetItem = diagramControl1.Items.OfType<DiagramShape>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
+                if (targetItem != null)
+                {
+                    diagramControl1.Items.Add(new DiagramConnector() { BeginItem = e.Items[0].Item, EndItem = targetItem });
+                }
+            }
+
+            //if (e.Stage == DiagramActionStage.Finished)
+            //{
+            //    DiagramContainer dc = null; 
+
+            //    DiagramShape targetItem = diagramControl1.Items.OfType<DiagramShape>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
+            //    if(targetItem==null)
+            //    {
+            //        dc = diagramControl1.Items.OfType<DiagramContainer>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
+            //        //targetItem = dc.Items[0];
+            //    }
+            //    if (targetItem != null)
+            //    {
+            //        diagramControl1.Items.Add(new DiagramConnector() { BeginItem = e.Items[0].Item, EndItem = dc.Items[0] });
+            //    }
+            //}
         }
 
         private void DiagramControl1_KeyDown(object sender, KeyEventArgs e)
@@ -93,12 +126,53 @@ namespace OrgChartControllerExample
         }
 
         private void DiagramControl1_MouseDoubleClick(object sender, MouseEventArgs e)
-        {            
+        {
             PointFloat canvasPoint = diagramControl1.PointToDocument(new PointFloat(e.X, e.Y));
-            
+
             DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
             diagramControl1.Items.Add(ds);
             diagramControl1.SelectItem(ds);
+        }
+
+      
+
+        private void searchControl1_TextChanged(object sender, EventArgs e)
+        {
+            //following this example https://supportcenter.devexpress.com/ticket/details/t448980/how-to-use-a-search-box-to-search-for-shapes-at-the-diagram-surface
+
+            SearchControl searchControl = (SearchControl)sender;
+            foreach (DiagramItem item in diagramControl1.Items)
+            {
+                Type itemType = item.GetType();
+                if (itemType == typeof(DiagramShape))
+                {
+                    DiagramShape shape = item as DiagramShape;
+                    if (shape == null)
+                        continue;
+                    if (shape.Content.Contains(searchControl.Text.ToLower()))
+                    {
+                        diagramControl1.SelectItem(shape);
+                        diagramControl1.BringSelectionIntoView();
+                        //diagramControl1.FitToItems(new DiagramItem[] { shape });
+                        break;
+                    }
+                }
+                else if(itemType == typeof(DiagramContainer))
+                {
+                    DiagramContainer container = item as DiagramContainer;
+                    if (container == null)
+                        continue;
+                    string s = (container.DataContext as Contact).FirstName.ToString();
+                    if (s.Contains(searchControl.Text.ToLower()))
+                    {
+                        diagramControl1.SelectItem(container);
+                        diagramControl1.BringSelectionIntoView();
+                        //diagramControl1.FitToItems(new DiagramItem[] { shape });
+                        break;
+                    }
+                }
+
+            }
         }
     }
 }

@@ -31,7 +31,8 @@ namespace OrgChartControllerExample
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.diagramControl1 = new DiagramControlEx();
+            this.searchControl1 = new DevExpress.XtraEditors.SearchControl();
+            this.diagramControl1 = new OrgChartControllerExample.Classes.DiagramControlEx();
             this.diagramOrgChartController1 = new DevExpress.XtraDiagram.DiagramOrgChartController(this.components);
             this.diagramContainer1 = new DevExpress.XtraDiagram.DiagramContainer();
             this.diagramImage1 = new DevExpress.XtraDiagram.DiagramImage();
@@ -39,22 +40,35 @@ namespace OrgChartControllerExample
             this.diagramShape2 = new DevExpress.XtraDiagram.DiagramShape();
             this.diagramShape3 = new DevExpress.XtraDiagram.DiagramShape();
             this.diagramConnector1 = new DevExpress.XtraDiagram.DiagramConnector();
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramOrgChartController1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramOrgChartController1.TemplateDiagram)).BeginInit();
             this.SuspendLayout();
             // 
+            // searchControl1
+            // 
+            this.searchControl1.Location = new System.Drawing.Point(506, 0);
+            this.searchControl1.Name = "searchControl1";
+            this.searchControl1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Repository.ClearButton(),
+            new DevExpress.XtraEditors.Repository.SearchButton()});
+            this.searchControl1.Size = new System.Drawing.Size(125, 22);
+            this.searchControl1.TabIndex = 1;
+            this.searchControl1.TextChanged += new System.EventHandler(this.searchControl1_TextChanged);
+            // 
             // diagramControl1
             // 
             this.diagramControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.diagramControl1.Location = new System.Drawing.Point(0, 0);
+            this.diagramControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.diagramControl1.Name = "diagramControl1";
             this.diagramControl1.OptionsBehavior.SelectedStencils = new DevExpress.Diagram.Core.StencilCollection(new string[0]);
             this.diagramControl1.OptionsView.PaperKind = System.Drawing.Printing.PaperKind.Letter;
             this.diagramControl1.OptionsView.ShowGrid = false;
             this.diagramControl1.OptionsView.ShowPageBreaks = false;
             this.diagramControl1.OptionsView.ShowRulers = false;
-            this.diagramControl1.Size = new System.Drawing.Size(1009, 711);
+            this.diagramControl1.Size = new System.Drawing.Size(1177, 875);
             this.diagramControl1.TabIndex = 0;
             // 
             // diagramOrgChartController1
@@ -208,12 +222,15 @@ namespace OrgChartControllerExample
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1009, 711);
+            this.ClientSize = new System.Drawing.Size(1177, 875);
+            this.Controls.Add(this.searchControl1);
             this.Controls.Add(this.diagramControl1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramOrgChartController1.TemplateDiagram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramOrgChartController1)).EndInit();
@@ -231,7 +248,7 @@ namespace OrgChartControllerExample
         private DevExpress.XtraDiagram.DiagramShape diagramShape2;
         private DevExpress.XtraDiagram.DiagramShape diagramShape3;
         private DevExpress.XtraDiagram.DiagramConnector diagramConnector1;
-
+        private DevExpress.XtraEditors.SearchControl searchControl1;
     }
 }
 
