@@ -20,6 +20,26 @@ namespace OrgChartControllerExample
             var model = new MainViewModel();
             diagramOrgChartController1.DataSource = model.Contacts;
             diagramControl1.MouseDoubleClick += DiagramControl1_MouseDoubleClick;
+            diagramControl1.MouseMove += DiagramControl1_MouseMove;
+        }
+
+        private void DiagramControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+            //done from sample here https://supportcenter.devexpress.com/ticket/details/t1000248/how-to-activate-the-connector-tool-on-mouse-hover
+
+            if (Control.ModifierKeys.HasFlag(Keys.Control))
+            {
+
+                var shape = diagramControl1.CalcHitItem(new DevExpress.Utils.PointFloat(e.X, e.Y));
+                if (shape != null)
+                {
+                    diagramControl1.OptionsBehavior.ActiveTool = diagramControl1.OptionsBehavior.ConnectorTool;
+                }
+            }
+            else
+            {
+                diagramControl1.OptionsBehavior.ActiveTool = diagramControl1.OptionsBehavior.PointerTool;
+            }
         }
 
         private void DiagramControl1_MouseDoubleClick(object sender, MouseEventArgs e)
