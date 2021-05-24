@@ -1,4 +1,6 @@
-﻿namespace OrgChartControllerExample
+﻿using OrgChartControllerExample.Classes;
+
+namespace OrgChartControllerExample
 {
     partial class Form1
     {
@@ -29,7 +31,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.diagramControl1 = new DevExpress.XtraDiagram.DiagramControl();
+            this.diagramControl1 = new DiagramControlEx();
             this.diagramOrgChartController1 = new DevExpress.XtraDiagram.DiagramOrgChartController(this.components);
             this.diagramContainer1 = new DevExpress.XtraDiagram.DiagramContainer();
             this.diagramImage1 = new DevExpress.XtraDiagram.DiagramImage();
@@ -221,7 +223,7 @@
 
         #endregion
 
-        private DevExpress.XtraDiagram.DiagramControl diagramControl1;
+        private DiagramControlEx diagramControl1;
         private DevExpress.XtraDiagram.DiagramOrgChartController diagramOrgChartController1;
         private DevExpress.XtraDiagram.DiagramContainer diagramContainer1;
         private DevExpress.XtraDiagram.DiagramImage diagramImage1;

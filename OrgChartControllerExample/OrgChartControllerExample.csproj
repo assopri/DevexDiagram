@@ -63,6 +63,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\DiagramControlEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data\Contact.cs" />
     <Compile Include="Data\ContactContextInitializer .cs" />
     <Compile Include="Data\Gender.cs" />

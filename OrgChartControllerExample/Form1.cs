@@ -25,7 +25,10 @@ namespace OrgChartControllerExample
         private void DiagramControl1_MouseDoubleClick(object sender, MouseEventArgs e)
         {            
             PointFloat canvasPoint = diagramControl1.PointToDocument(new PointFloat(e.X, e.Y));
-            diagramControl1.Items.Add(new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint });
+            
+            DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
+            diagramControl1.Items.Add(ds);
+            diagramControl1.SelectItem(ds);
         }
     }
 }
