@@ -22,6 +22,12 @@ namespace OrgChartControllerExample
             diagramControl1.MouseDoubleClick += DiagramControl1_MouseDoubleClick;
             diagramControl1.MouseMove += DiagramControl1_MouseMove;
             diagramControl1.KeyDown += DiagramControl1_KeyDown;
+
+            foreach (var item in diagramControl1.Items)
+            {
+                item.CanHideSubordinates = true;
+                
+            }
         }
 
         private void DiagramControl1_KeyDown(object sender, KeyEventArgs e)
