@@ -39,10 +39,22 @@ namespace OrgChartControllerExample
         {
             if (e.Stage == DiagramActionStage.Finished)
             {
-                DiagramShape targetItem = diagramControl1.Items.OfType<DiagramShape>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
-                if (targetItem != null)
+                DiagramShape targetShape = diagramControl1.Items.OfType<DiagramShape>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
+                if (targetShape != null)
                 {
-                    diagramControl1.Items.Add(new DiagramConnector() { BeginItem = e.Items[0].Item, EndItem = targetItem });
+                    diagramControl1.Items.Add(new DiagramConnector() { BeginItem = e.Items[0].Item, EndItem = targetShape });
+                }
+                //code modification for containers 
+                {
+                    DiagramContainer targetContainer = diagramControl1.Items.OfType<DiagramContainer>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
+
+                    if(targetContainer != null)
+                    {
+                        diagramControl1.Items.Add(new DiagramConnector() { BeginItem = targetContainer, EndItem = e.Items[0].Item });
+
+                        //to prevent adding the dragged item to the container
+                        e.Cancel = true;
+                    }
                 }
             }
 
