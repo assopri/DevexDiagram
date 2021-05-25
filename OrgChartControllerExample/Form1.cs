@@ -30,9 +30,11 @@ namespace OrgChartControllerExample
             foreach (var item in diagramControl1.Items)
             {
                 item.CanHideSubordinates = true;
-
             }
 
+            // https://supportcenter.devexpress.com/ticket/details/t1000542/how-can-i-use-mindmap-layout-instead-of-orgchart-layout-in-this-sample
+            diagramOrgChartController1.LayoutKind = DiagramLayoutKind.MindMapTree;
+            diagramControl1.ApplyMindMapTreeLayout(); //OrientationKind.Vertical
         }
 
         private void DiagramControl1_ItemsMoving(object sender, DiagramItemsMovingEventArgs e)
