@@ -29,16 +29,40 @@ namespace OrgChartControllerExample
 
             foreach (var item in diagramControl1.Items)
             {
-                item.CanHideSubordinates = true;
+                if(item is DiagramConnector)
+                {
+                    //(item as DiagramConnector).cur
+                }
+                else
+                {
+                    item.CanHideSubordinates = true;
+                }
             }
 
             // https://supportcenter.devexpress.com/ticket/details/t1000542/how-can-i-use-mindmap-layout-instead-of-orgchart-layout-in-this-sample
-            diagramOrgChartController1.LayoutKind = DiagramLayoutKind.MindMapTree;
-            diagramControl1.ApplyMindMapTreeLayout(); //OrientationKind.Vertical
+            //diagramOrgChartController1.LayoutKind = DiagramLayoutKind.MindMapTree;
+            //diagramControl1.ApplyMindMapTreeLayout(); //OrientationKind.Vertical
+
+            // To make connectors curved, set the DiagramConnector.Type property to "Curved".To set this property automatically for newly created connectors, handle the ItemInitializing event.
+            diagramControl1.ItemInitializing += DiagramControl1_ItemInitializing;
+        }
+
+        private void DiagramControl1_ItemInitializing(object sender, DiagramItemInitializingEventArgs e)
+        {
+            DiagramConnector connector = e.Item as DiagramConnector;
+            if (connector != null)
+            {
+                connector.EndArrow = ArrowDescriptions.FilledDot;
+                connector.BeginArrow = ArrowDescriptions.ClosedDoubleArrow;
+                connector.Type = ConnectorType.Curved;
+            }
+                
         }
 
         private void DiagramControl1_ItemsMoving(object sender, DiagramItemsMovingEventArgs e)
         {
+            // TODO: It's possible that the NewParent property is not updated in your usage scenario, because containers don't allow adding new children. You can try setting DiagramContainer.CanAddItems to true to check if this is the case. Your solution is correct, so you can keep using it.
+            // https://supportcenter.devexpress.com/ticket/details/t998796/can-i-implement-following-type-of-node-connection-creation-behaviours-with-mind-map
             if (e.Stage == DiagramActionStage.Finished)
             {
                 DiagramShape targetShape = diagramControl1.Items.OfType<DiagramShape>().FirstOrDefault(item => item.Bounds.Contains(e.Items[0].NewDiagramPosition));
