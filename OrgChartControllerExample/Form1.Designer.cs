@@ -39,6 +39,7 @@ namespace OrgChartControllerExample
             this.diagramShape1 = new DevExpress.XtraDiagram.DiagramShape();
             this.diagramShape2 = new DevExpress.XtraDiagram.DiagramShape();
             this.diagramShape3 = new DevExpress.XtraDiagram.DiagramShape();
+            this.diagramShape4 = new DevExpress.XtraDiagram.DiagramShape();
             this.diagramConnector1 = new DevExpress.XtraDiagram.DiagramConnector();
             ((System.ComponentModel.ISupportInitialize)(this.searchControl1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.diagramControl1)).BeginInit();
@@ -106,7 +107,8 @@ namespace OrgChartControllerExample
             this.diagramImage1,
             this.diagramShape1,
             this.diagramShape2,
-            this.diagramShape3});
+            this.diagramShape3,
+            this.diagramShape4});
             this.diagramContainer1.ItemsCanAttachConnectorBeginPoint = false;
             this.diagramContainer1.ItemsCanAttachConnectorEndPoint = false;
             this.diagramContainer1.ItemsCanChangeParent = false;
@@ -206,6 +208,28 @@ namespace OrgChartControllerExample
             this.diagramShape3.Size = new System.Drawing.SizeF(129F, 20F);
             this.diagramShape3.ThemeStyleId = DevExpress.Diagram.Core.DiagramShapeStyleId.Moderate5;
             // 
+            // diagramShape4
+            // 
+            this.diagramShape4.Anchors = ((DevExpress.Diagram.Core.Sides)((DevExpress.Diagram.Core.Sides.Left | DevExpress.Diagram.Core.Sides.Top)));
+            this.diagramShape4.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.diagramShape4.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.diagramShape4.Appearance.BorderSize = 0;
+            this.diagramShape4.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.diagramShape4.Bindings.Add(new DevExpress.Diagram.Core.DiagramBinding("Content", "Zip"));
+            this.diagramShape4.CanAttachConnectorBeginPoint = false;
+            this.diagramShape4.CanAttachConnectorEndPoint = false;
+            this.diagramShape4.CanChangeParent = false;
+            this.diagramShape4.CanCopyWithoutParent = false;
+            this.diagramShape4.CanDeleteWithoutParent = false;
+            this.diagramShape4.CanEdit = false;
+            this.diagramShape4.CanMove = false;
+            this.diagramShape4.CanResize = false;
+            this.diagramShape4.CanRotate = false;
+            this.diagramShape4.CanSelect = false;
+            this.diagramShape4.MoveWithSubordinates = true;
+            this.diagramShape4.Position = new DevExpress.Utils.PointFloat(124F, 1F);
+            this.diagramShape4.Size = new System.Drawing.SizeF(100F, 50F);
+            // 
             // diagramConnector1
             // 
             this.diagramConnector1.Appearance.ContentBackground = System.Drawing.Color.White;
@@ -242,13 +266,14 @@ namespace OrgChartControllerExample
 
         private DiagramControlEx diagramControl1;
         private DevExpress.XtraDiagram.DiagramOrgChartController diagramOrgChartController1;
+        private DevExpress.XtraEditors.SearchControl searchControl1;
         private DevExpress.XtraDiagram.DiagramContainer diagramContainer1;
         private DevExpress.XtraDiagram.DiagramImage diagramImage1;
         private DevExpress.XtraDiagram.DiagramShape diagramShape1;
         private DevExpress.XtraDiagram.DiagramShape diagramShape2;
         private DevExpress.XtraDiagram.DiagramShape diagramShape3;
+        private DevExpress.XtraDiagram.DiagramShape diagramShape4;
         private DevExpress.XtraDiagram.DiagramConnector diagramConnector1;
-        private DevExpress.XtraEditors.SearchControl searchControl1;
     }
 }
 
