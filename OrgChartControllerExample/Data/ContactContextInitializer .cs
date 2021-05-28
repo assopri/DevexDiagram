@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace OrgChartControllerExample.Model
 {
     public class ContactContextInitializer {
-        public List<Contact> Generate()
+        public ObservableCollection<Contact> Generate()
         {
-            List<Contact> contacts = new List<Contact>() {
+            ObservableCollection<Contact> contacts = new ObservableCollection<Contact>() {
                 new Contact("Carolyn", "Baker") {
                     Gender = Gender.Female, Email = "carolyn.baker@example.com", Phone = "(555)349-3010",
                     Address = "1198 Theresa Cir", City = "Whitinsville", State = "MA", Zip = "01582",
@@ -59,7 +60,11 @@ namespace OrgChartControllerExample.Model
                 },
             };
             InitializePhotos(contacts);
-            contacts.ForEach(x => x.Id = contacts.IndexOf(x));
+            foreach(Contact c in contacts)
+            {
+                c.Id = contacts.IndexOf(c);
+            }
+            //contacts.ForEach(x => x.Id = contacts.IndexOf(x));
             return contacts;
            
         }

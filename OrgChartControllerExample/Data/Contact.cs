@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrgChartControllerExample.Model
 {
-    public class Contact {
+    public class Contact 
+    {
         [ReadOnly(true)]
         [Display(AutoGenerateField = false)]
         public int Id { get; set; }
@@ -65,5 +66,7 @@ namespace OrgChartControllerExample.Model
             FirstName = firstName;
             LastName = lastName;
         }
+
+        
     }
 }
