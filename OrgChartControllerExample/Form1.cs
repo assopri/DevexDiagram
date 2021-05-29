@@ -6,6 +6,7 @@ using OrgChartControllerExample.Model;
 using OrgChartControllerExample.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -20,7 +21,7 @@ namespace OrgChartControllerExample
         public Form1()
         {
             InitializeComponent();
-            var model = new MainViewModel();
+            MainViewModel model = new MainViewModel();
             diagramOrgChartController1.DataSource = model.Contacts;
             diagramControl1.MouseDoubleClick += DiagramControl1_MouseDoubleClick;
             diagramControl1.MouseMove += DiagramControl1_MouseMove;
@@ -170,6 +171,8 @@ namespace OrgChartControllerExample
             DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
             diagramControl1.Items.Add(ds);
             diagramControl1.SelectItem(ds);
+
+            (diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Clear(); 
         }
 
       

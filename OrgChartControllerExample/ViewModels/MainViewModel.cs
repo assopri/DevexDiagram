@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OrgChartControllerExample.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModel 
     {
         //public IList<Contact> Contacts { get; protected set; }
         public ObservableCollection<Contact> Contacts { get; protected set; }
@@ -15,20 +15,7 @@ namespace OrgChartControllerExample.ViewModels
         public MainViewModel()
         {
             Contacts = new ContactContextInitializer().Generate();
-
-            Contacts.CollectionChanged += Contacts_CollectionChanged;
         }
 
-        private void Contacts_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }
