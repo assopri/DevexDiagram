@@ -44,7 +44,7 @@ namespace OrgChartControllerExample
             // https://supportcenter.devexpress.com/ticket/details/t1000542/how-can-i-use-mindmap-layout-instead-of-orgchart-layout-in-this-sample
             //diagramOrgChartController1.LayoutKind = DiagramLayoutKind.MindMapTree;
             //diagramControl1.ApplyMindMapTreeLayout(); //OrientationKind.Vertical
-            diagramControl1.ApplySugiyamaLayout();
+            // diagramControl1.ApplySugiyamaLayout();
             // To make connectors curved, set the DiagramConnector.Type property to "Curved".To set this property automatically for newly created connectors, handle the ItemInitializing event.
             diagramControl1.ItemInitializing += DiagramControl1_ItemInitializing;
         }
@@ -171,7 +171,11 @@ namespace OrgChartControllerExample
             var shape = diagramControl1.CalcHitItem(new DevExpress.Utils.PointFloat(e.X, e.Y));
             
             if (shape == null)
-            { 
+            {
+                //Contact c = new Contact("Kris", "Rea");
+                //c.Id = 555;
+                //(diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Add(c);
+
                 DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
                 diagramControl1.Items.Add(ds);
                 diagramControl1.SelectItem(ds);
