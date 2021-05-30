@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -43,7 +44,7 @@ namespace OrgChartControllerExample
             // https://supportcenter.devexpress.com/ticket/details/t1000542/how-can-i-use-mindmap-layout-instead-of-orgchart-layout-in-this-sample
             //diagramOrgChartController1.LayoutKind = DiagramLayoutKind.MindMapTree;
             //diagramControl1.ApplyMindMapTreeLayout(); //OrientationKind.Vertical
-
+            diagramControl1.ApplySugiyamaLayout();
             // To make connectors curved, set the DiagramConnector.Type property to "Curved".To set this property automatically for newly created connectors, handle the ItemInitializing event.
             diagramControl1.ItemInitializing += DiagramControl1_ItemInitializing;
         }
@@ -167,12 +168,20 @@ namespace OrgChartControllerExample
         private void DiagramControl1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             PointFloat canvasPoint = diagramControl1.PointToDocument(new PointFloat(e.X, e.Y));
+            var shape = diagramControl1.CalcHitItem(new DevExpress.Utils.PointFloat(e.X, e.Y));
+            
+            if (shape == null)
+            { 
+                DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
+                diagramControl1.Items.Add(ds);
+                diagramControl1.SelectItem(ds);
+            }
+            else
+            {
+                Debug.WriteLine((shape.DataContext as Contact).Id);
+            }
 
-            DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
-            diagramControl1.Items.Add(ds);
-            diagramControl1.SelectItem(ds);
-
-            (diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Clear(); 
+            //(diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Clear(); 
         }
 
       

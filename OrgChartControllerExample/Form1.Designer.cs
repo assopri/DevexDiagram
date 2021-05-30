@@ -240,9 +240,10 @@ namespace OrgChartControllerExample
             this.diagramConnector1.EndArrow = DevExpress.Diagram.Core.ArrowDescriptions.IndentedFilledArrow;
             this.diagramConnector1.EndArrowSize = new System.Drawing.SizeF(12F, 7F);
             this.diagramConnector1.EndPoint = new DevExpress.Utils.PointFloat(460F, 150F);
-            this.diagramConnector1.Points = new DevExpress.XtraDiagram.PointCollection(new DevExpress.Utils.PointFloat[0]);
+            this.diagramConnector1.Points = new DevExpress.XtraDiagram.PointCollection(new DevExpress.Utils.PointFloat[] {
+            new DevExpress.Utils.PointFloat(370F, 150F)});
             this.diagramConnector1.ThemeStyleId = DevExpress.Diagram.Core.DiagramConnectorStyleId.Intense5;
-            this.diagramConnector1.Type = DevExpress.Diagram.Core.ConnectorType.Straight;
+            this.diagramConnector1.Type = DevExpress.Diagram.Core.ConnectorType.Curved;
             // 
             // Form1
             // 
