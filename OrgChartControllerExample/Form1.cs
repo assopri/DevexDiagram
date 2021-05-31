@@ -47,6 +47,20 @@ namespace OrgChartControllerExample
             // diagramControl1.ApplySugiyamaLayout();
             // To make connectors curved, set the DiagramConnector.Type property to "Curved".To set this property automatically for newly created connectors, handle the ItemInitializing event.
             diagramControl1.ItemInitializing += DiagramControl1_ItemInitializing;
+
+            diagramOrgChartController1.ItemsGenerated += DiagramOrgChartController1_ItemsGenerated;
+        }
+
+        private void DiagramOrgChartController1_ItemsGenerated(object sender, DiagramItemsGeneratedEventArgs e)
+        {
+            // https://supportcenter.devexpress.com/ticket/details/t1002500/diagramcontrol-how-to-set-the-canvas-position-for-items-added-to-the-data-source
+            // e.GeneratedItems.First().Position = _lastDoubleClickCoordinates;
+            //..MessageBox.Show("a");
+            //if (e.GeneratedItems.Any(x => x.DataContext is Item item && item.Name == "Test"))
+            //{
+            //    e.GeneratedItems.Where(x => x.DataContext is Item item && item.Name == "Test").First().Position = 
+            //        new DevExpress.Utils.PointFloat(X, Y);
+            //}
         }
 
         private void DiagramControl1_ItemInitializing(object sender, DiagramItemInitializingEventArgs e)
@@ -115,6 +129,10 @@ namespace OrgChartControllerExample
                 AddItem(true);
                 e.Handled = true;
             }
+            else if (e.KeyCode == Keys.S)
+            {
+                diagramControl1.SaveDocument("data.xml");
+            }
         }
 
         void AddItem(bool addSibling)
@@ -164,25 +182,29 @@ namespace OrgChartControllerExample
                 diagramControl1.OptionsBehavior.ActiveTool = diagramControl1.OptionsBehavior.PointerTool;
             }
         }
-
+        int _uniqueId = 555;
+        PointFloat _lastDoubleClickCoordinates;
+        //int _lastDoubleClickY = -1;
         private void DiagramControl1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             PointFloat canvasPoint = diagramControl1.PointToDocument(new PointFloat(e.X, e.Y));
-            var shape = diagramControl1.CalcHitItem(new DevExpress.Utils.PointFloat(e.X, e.Y));
+            var diagramItem = diagramControl1.CalcHitItem(new DevExpress.Utils.PointFloat(e.X, e.Y));
             
-            if (shape == null)
+            if (diagramItem == null)
             {
-                //Contact c = new Contact("Kris", "Rea");
-                //c.Id = 555;
-                //(diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Add(c);
+                _lastDoubleClickCoordinates = new DevExpress.Utils.PointFloat(e.X, e.Y);
+                //DataSource.Items.Add(new Item() { ID = -1, Name = "Test" });
+                Contact c = new Contact("Kris", "Rea");
+                c.Id = _uniqueId;
+                (diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Add(c);
 
-                DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
-                diagramControl1.Items.Add(ds);
-                diagramControl1.SelectItem(ds);
+                //DiagramShape ds = new DiagramShape() { Width = 100, Height = 100, Position = canvasPoint, Content = "hello" };
+                //diagramControl1.Items.Add(ds);
+                //diagramControl1.SelectItem(ds);
             }
             else
             {
-                Debug.WriteLine((shape.DataContext as Contact).Id);
+                Debug.WriteLine((diagramItem.DataContext as Contact).Id);
             }
 
             //(diagramOrgChartController1.DataSource as ObservableCollection<Contact>).Clear(); 
